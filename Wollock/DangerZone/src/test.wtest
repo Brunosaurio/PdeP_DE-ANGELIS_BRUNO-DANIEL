@@ -49,6 +49,6 @@ test "luego de completar una mision de nivel 6 con su subordinado, bond aprende 
 	const misionTiroCertero = new Mision(descripcion = "disparo certero", habilidadesReq = ["disparoConPie","disparoPreciso"],peligrosidad = 6)
 	misionTiroCertero.equipoAsignado([bond, bondSub])
 	misionTiroCertero.empezarMision()
-	assert.equals(["disparoPreciso","disparoConPie","comerDonas"],bond.habilidades())
+	assert.equals(["disparoConPie","comerDonas","disparoPreciso"],bond.habilidades())
 }
 

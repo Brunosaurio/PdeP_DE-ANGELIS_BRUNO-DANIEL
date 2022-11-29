@@ -5,6 +5,10 @@ class Empleado{
 	var property saludRestante
 	method saludCritica()
 	method estaCapacitado() = saludRestante >= self.saludCritica()
+	//habilidadesQuePuedeUsar = habUsables
+	method habUsables(){
+		return self.habilidades() + (self.subordinados().map({sub => sub.habilidades()})).flatten()
+	}
 	method puedeUsar(habilidad) = self.estaCapacitado() && (habilidades.contains(habilidad) || subordinados.any({sub => sub.puedeUsar(habilidad)}))  
 	method efectoDeMision(mision){
 		if (mision.equipoAsignado().size() <= 1){
@@ -35,7 +39,7 @@ class Mision{
 	var property equipoAsignado = []
 	var property habilidadesReq
 	var property peligrosidad
-	method habDelEquipo() = equipoAsignado.map({miembro => miembro.habilidades()}).flatten()
+	method habDelEquipo() = (equipoAsignado.map({miembro => miembro.habUsables()}).flatten()).asSet()
 	method sePuedeCompletar(){
 		return habilidadesReq.all({hab => self.habDelEquipo().contains(hab)}) && equipoAsignado.all({espia => espia.estaCapacitado()})
 	}
