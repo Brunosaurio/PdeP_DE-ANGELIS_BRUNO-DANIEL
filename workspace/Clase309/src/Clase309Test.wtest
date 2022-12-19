@@ -1,0 +1,8 @@
+import example.*
+test "jony construye y gasta recursos" {
+	jony.construir(laQueEstaAlLadoDelRio)
+	assert.equals(jony.recursos(),900)
+}
+test "jony puede defenderse"{
+	assert.that(jony.puedeDefenderse())
+}

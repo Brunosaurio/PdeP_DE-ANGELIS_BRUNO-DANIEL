@@ -1,0 +1,37 @@
+import example.*
+const parkAsterix = new LugarInfantil(precioEntrada = 1000, paisUbicacion = "Catar")
+const pedro = new Turista(edad = 12, cantMillas = 12)
+const juan = new Turista(edad = 13, cantMillas = 13)
+const abueloDePedro = new Turista(edad = 60, cantMillas = 30)
+const abuelaDePedro = new Turista(edad = 70, cantMillas = 32)
+const eiffel = new LugarParaAdultosMayores(precioEntrada = 2000, paisUbicacion = "Francia")
+test "pedro puede visitar el parque asterix pq tiene las millas necesarias y la edad" {
+	assert.that(pedro.puedeVisitar(parkAsterix))
+}
+test "pedro ya no puede visitar el parque asterix pq las millas ya no valen lo de antes " {
+	milla.cotizacion(50)
+	assert.that(pedro.puedeVisitar(parkAsterix).negate())
+}
+test "el abuelo de pedro no puede visitar el parque asterix pq tiene las millas necesarias pero no le da la edad" {
+	assert.that(abueloDePedro.puedeVisitar(parkAsterix).negate())
+}
+test "el abuelo de pedro no puede visitar la torre eiffel pq tiene las millas necesarias pero no entra en el rango de edad" {
+	assert.that(abueloDePedro.puedeVisitar(eiffel).negate()&&eiffel.precioParaIngresoDe(abueloDePedro) == 2000)
+}
+test "la abuela de pedro puede visitar la torre eiffel pq tiene las millas necesarias pero recibe descuento de entrada" {
+	assert.that(abuelaDePedro.puedeVisitar(eiffel)&&eiffel.precioParaIngresoDe(abuelaDePedro) == 2000*4/5)
+}
+test "luego de un anio pedro tiene 13 años"{
+	sistema.agregarTurista(pedro)
+	sistema.pasoUnAnio()
+	assert.that(pedro.edad()==13)
+}
+test "pedro visito Catar"{
+	pedro.viajarA(parkAsterix)
+	assert.that(pedro.visitoPais("Catar"))
+}
+test "el lugar mas visitado por los ninios"{
+	juan.viajes([parkAsterix,parkAsterix])
+	assert.equals(sistema.elSitioFavoritoDeLosNinios(),)
+}
+

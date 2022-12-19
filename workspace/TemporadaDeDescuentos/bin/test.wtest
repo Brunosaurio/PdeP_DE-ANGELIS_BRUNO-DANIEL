@@ -1,0 +1,10 @@
+import example.*
+test "el precio de un juego con descuento total es 0" {
+	const cod = new Juego(preciOriginal = 1000, descuentoAplicado = descuentoTotal)
+	assert.equals(0,cod.precio())
+}
+test "el precio de un juego con descuento total inicial y luego es sin Descuento es 0" {
+	const cod = new Juego(preciOriginal = 1000, descuentoAplicado = descuentoTotal)
+	cod.descuentoAplicado(sinDescuento)
+	assert.equals(1000,cod.precio())
+}

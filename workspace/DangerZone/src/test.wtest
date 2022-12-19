@@ -1,0 +1,54 @@
+import example.*
+test "un Espia con 10 de vida esta incapacitado" {
+	const bond = new Espia (saludRestante = 10)
+	assert.that(bond.estaCapacitado().negate())
+}
+test "un Oficinista con 41 de vida y 0 estrellas esta capacitado" {
+	const merlin = new Oficinista (saludRestante = 41)
+	assert.equals(merlin.estaCapacitado(),true)
+}
+test "James bond tiene un subordinado(capacitado) que es muy bueno disparando cno los pies"{
+	const bondSub = new Espia(habilidades = ["disparoConPie"],saludRestante = 20)
+	const bond = new Espia (habilidades = ["disparoPreciso"],saludRestante = 20, subordinados = [bondSub])
+	assert.that(bond.puedeUsar("disparoConPie"))
+}
+test "James bond tiene un subordinado(incapacitado) que es muy bueno disparando cno los pies"{
+	const bondSub = new Espia(habilidades = ["disparoConPie"],saludRestante = 10)
+	const bond = new Espia (habilidades = ["disparoPreciso"],saludRestante = 20, subordinados = [bondSub])
+	assert.that(bond.puedeUsar("disparoConPie").negate())
+}
+test "James bond sin un subordinado no puede disparar con los pies"{
+	const bondSub = new Espia(habilidades = ["disparoConPie"],saludRestante = 20)
+	const bond = new Espia (habilidades = ["disparoPreciso"],saludRestante = 20, subordinados = [])
+	assert.that(bond.puedeUsar("disparoConPie").negate())
+}
+test "Las habilidades de un equipo entre james Bond y su subordinado son disparoPreciso y disparoConPie"{
+	const bondSub = new Espia(habilidades = ["disparoConPie"],saludRestante = 20)
+	const bond = new Espia (habilidades = ["disparoPreciso"],saludRestante = 20, subordinados = [])
+	const habDelEquipo = [bondSub, bond].map({miembro => miembro.habilidades()}).flatten()
+	assert.equals(habDelEquipo,["disparoConPie","disparoPreciso"])
+}
+test "Una mision de nivel 5 se puede completar con bond y su subordinado"{
+	const bondSub = new Espia(habilidades = ["disparoConPie"],saludRestante = 20)
+	const bond = new Espia (habilidades = ["disparoPreciso"],saludRestante = 20, subordinados = [])
+	const misionTiroCertero = new Mision(descripcion = "disparo certero", habilidadesReq = ["disparoConPie","disparoPreciso"],peligrosidad = 5)
+	misionTiroCertero.equipoAsignado([bond, bondSub])
+	assert.that(misionTiroCertero.sePuedeCompletar())
+}
+test "luego de completar una mision de nivel 6 bond termina con 18 de vida al igual q su subordinado"{
+	const bondSub = new Oficinista(habilidades = ["disparoConPie"],saludRestante = 20)
+	const bond = new Espia (habilidades = ["disparoPreciso"],saludRestante = 20, subordinados = [])
+	const misionTiroCertero = new Mision(descripcion = "disparo certero", habilidadesReq = ["disparoConPie","disparoPreciso"],peligrosidad = 6)
+	misionTiroCertero.equipoAsignado([bond, bondSub])
+	misionTiroCertero.empezarMision()
+	assert.equals(18,bondSub.saludRestante())
+}
+test "luego de completar una mision de nivel 6 con su subordinado, bond aprende a disparar con el pie"{
+	const bondSub = new Oficinista(habilidades = ["disparoConPie","comerDonas"],saludRestante = 20)
+	const bond = new Espia (habilidades = ["disparoPreciso"],saludRestante = 20, subordinados = [])
+	const misionTiroCertero = new Mision(descripcion = "disparo certero", habilidadesReq = ["disparoConPie","disparoPreciso"],peligrosidad = 6)
+	misionTiroCertero.equipoAsignado([bond, bondSub])
+	misionTiroCertero.empezarMision()
+	assert.equals(["disparoConPie","comerDonas","disparoPreciso"],bond.habilidades())
+}
+

@@ -1,0 +1,7 @@
+import example.*
+test "El valor de un recurso para un jugador es la cantidad de ese recurso
+que el jugador tiene, por la cotización del recurso en sí" {
+	const jugador1 = new Jugador (nombre = "jugador1")
+	assert.equals(,)
+
+}

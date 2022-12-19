@@ -1,0 +1,8 @@
+import primavera.*
+import primavera.*
+test "la primavera empieza en septiembre" {
+
+	assert.that(primavera.empiezaEnSeptiembre())
+
+}
+

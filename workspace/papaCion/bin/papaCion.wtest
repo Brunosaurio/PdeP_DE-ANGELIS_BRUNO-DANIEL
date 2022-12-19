@@ -1,0 +1,11 @@
+import example.*
+
+test "costoDeProduccion,100PapasBuenas = 300" {
+	assert.equals(papa.costoDeProduccion() , 300)
+}
+test "impuestosSimples 100PapasBuenas= 330"{
+	assert.equals(papa.impuestos(),330)
+}
+test "retencionDemografica 100PapasBuenas = 300"{
+	assert.equals(papa.retenciones() , 300)
+}
